@@ -1,5 +1,12 @@
+import { useNavigate } from "react-router-dom";
+
 /* eslint-disable react/prop-types */
 function ProductTile({ singleProduct }) {
+  const navigate = useNavigate();
+  function handleNavigateToProductDetailsPage(getProductId) {
+    console.log(getProductId);
+    navigate(`/product-details/${getProductId}`);
+  }
   return (
     <div className="relative group border border-cyan-700 p-6 cursor-pointer">
       <div className="overflow-hidden aspect-w-1 aspect-h-1">
@@ -21,7 +28,10 @@ function ProductTile({ singleProduct }) {
           </p>
         </div>
       </div>
-      <button className="px-5 mt-5 w-full py-2 rounded-none bg-black text-white font-bold">
+      <button
+        onClick={() => handleNavigateToProductDetailsPage(singleProduct?.id)}
+        className="px-5 mt-5 w-full py-2 rounded-none bg-black text-white font-bold"
+      >
         View Details
       </button>
     </div>
