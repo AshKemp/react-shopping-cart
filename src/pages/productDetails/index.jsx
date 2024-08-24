@@ -1,9 +1,10 @@
 import { useContext, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ShoppingCartContext } from "../../context";
 
 function ProductDetailsPage() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const {
     productDetails,
@@ -44,6 +45,12 @@ function ProductDetailsPage() {
               <p className="text-xl font-bold">${productDetails?.price}</p>
             </div>
             <div>
+              <button
+                onClick={() => navigate("/products")}
+                className="mt-5 min-w-[200] px-4 py-3 border border-[#333] bg-transparent text-sm font-semibold rounded"
+              >
+                Back
+              </button>
               <button
                 disabled={
                   cartItems.findIndex(
