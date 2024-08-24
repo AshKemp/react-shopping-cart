@@ -1,8 +1,12 @@
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { ShoppingCartContext } from "../../context";
 
 /* eslint-disable react/prop-types */
 function ProductTile({ singleProduct }) {
   const navigate = useNavigate();
+
+  const { handleAddToCart, cartItems } = useContext(ShoppingCartContext);
   function handleNavigateToProductDetailsPage(getProductId) {
     console.log(getProductId);
     navigate(`/product-details/${getProductId}`);
@@ -33,6 +37,16 @@ function ProductTile({ singleProduct }) {
         className="px-5 mt-5 w-full py-2 rounded-none bg-black text-white font-bold"
       >
         View Details
+      </button>
+      <button
+        disabled={
+          cartItems.findIndex((cartItem) => cartItem.id === singleProduct.id) >
+          -1
+        }
+        onClick={() => handleAddToCart(singleProduct)}
+        className="disabled:opacity-65 px-5 mt-5 w-full py-2 rounded-none bg-black text-white font-bold"
+      >
+        Add To Cart
       </button>
     </div>
   );

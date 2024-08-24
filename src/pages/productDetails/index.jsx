@@ -4,8 +4,15 @@ import { ShoppingCartContext } from "../../context";
 
 function ProductDetailsPage() {
   const { id } = useParams();
-  const { productDetails, setProductDetails, loading, setLoading } =
-    useContext(ShoppingCartContext);
+
+  const {
+    productDetails,
+    setProductDetails,
+    loading,
+    setLoading,
+    handleAddToCart,
+    cartItems,
+  } = useContext(ShoppingCartContext);
 
   async function fetchProductDetails() {
     const apiResponse = await fetch(`https://dummyjson.com/products/${id}`);
@@ -37,7 +44,15 @@ function ProductDetailsPage() {
               <p className="text-xl font-bold">${productDetails?.price}</p>
             </div>
             <div>
-              <button className="mt-5 min-w-[200] px-4 py-3 border border-[#333] bg-transparent text-sm font-semibold rounded">
+              <button
+                disabled={
+                  cartItems.findIndex(
+                    (cartItem) => cartItem.id === productDetails.id
+                  ) > -1
+                }
+                onClick={() => handleAddToCart(productDetails)}
+                className="disabled:opacity-60 mt-5 min-w-[200] px-4 py-3 border border-[#333] bg-transparent text-sm font-semibold rounded"
+              >
                 Add to Cart
               </button>
             </div>
